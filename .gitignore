@@ -5,3 +5,5 @@ cmake_install.cmake
 *~
 #*
 build
+compile_commands.json
+.cache
