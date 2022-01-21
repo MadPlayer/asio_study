@@ -11,18 +11,22 @@ int main(int argc, char *argv[])
 {
   std::string address = "127.0.0.1";
   io_context context;
-  tcp::endpoint ep(make_address(address), 80);
-  tcp::socket socket(context);
-  std::error_code ec;
+  tcp::endpoint ep(make_address(address), 3333);
 
 
-  socket.open(tcp::v4(), ec);
-
-  if (ec.value())
+  try
     {
-      std::cerr << ec.value() << " " << ec.message() << std::endl;
-      return ec.value();
+      tcp::socket socket(context, tcp::v4());
+
+      socket.connect(ep);
+
     }
+  catch (std::system_error &ec)
+    {
+      std::cerr << "Error(" << ec.code() << "): " << ec.what() << std::endl;
+      return ec.code().value();
+    }
+
 
   return 0;
 }

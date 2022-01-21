@@ -11,18 +11,24 @@ int main(int argc, char *argv[])
 {
   io_context context;
   tcp::endpoint ep(address_v4::any(), 3333);
-  tcp::acceptor socket(context);
-  std::error_code ec;
 
-  socket.open(tcp::v4(), ec);
 
-  if (ec.value())
+  try
     {
-      std::cerr
-        << "Failed to open the acceptor socket!\n"
-        << "Error code: " << ec.value()
-        << ".\n " << ec.message() << std::endl;
-      return ec.value();
+      tcp::acceptor acceptor(context, tcp::v4());
+
+      acceptor.bind(ep);
+      acceptor.listen();
+
+      tcp::socket sock(context);
+
+      acceptor.accept(sock);
+
+    }
+  catch (std::system_error &ec)
+    {
+      std::cerr << "Error(" << ec.code() << "): " << ec.what() << std::endl;
+      return ec.code().value();
     }
 
   return 0;
