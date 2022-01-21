@@ -22,20 +22,20 @@ target_include_directories(client PUBLIC
 
 
 # =========================== server side ============================
-# set(server_sources server.cpp)
-# list(TRANSFORM server_sources PREPEND "src/server/")
+set(server_sources server.cpp)
+list(TRANSFORM server_sources PREPEND "src/server/")
 
-# add_executable(server
-#   ${server_sources}
-#   )
+add_executable(server
+  ${server_sources}
+  )
 
-# target_link_libraries(server
-#   -lpthread)
+target_link_libraries(server
+  -lpthread)
 
-# target_include_directories(server PUBLIC
-#   "$ENV{ASIO_HEADER}"
-#   "include/"
-#   )
+target_include_directories(server PUBLIC
+  "$ENV{ASIO_HEADER}"
+  "include/"
+  )
 
 
 

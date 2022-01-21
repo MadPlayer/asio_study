@@ -14,16 +14,5 @@ int main(int argc, char *argv[])
   tcp::endpoint ep(make_address(address), 80);
   tcp::socket socket(context);
 
-
-
-  if (socket.is_open())
-    {
-      std::cout << "done!\n";
-      socket.close();
-    }
-
-  socket.send(buffer(address.c_str(), address.length()));
-  socket.close();
-
   return 0;
 }
