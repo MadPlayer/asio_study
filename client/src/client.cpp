@@ -1,6 +1,5 @@
 #include "asio.hpp"
 #include <iostream>
-#include <thread>
 #include <string>
 #include <system_error>
 
@@ -19,7 +18,10 @@ int main(int argc, char *argv[])
       tcp::socket socket(context, tcp::v4());
 
       socket.connect(ep);
+      std::string msg = "hello\n";
+      write(socket, buffer(msg));
 
+      socket.close();
     }
   catch (std::system_error &ec)
     {
